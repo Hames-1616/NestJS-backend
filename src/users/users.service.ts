@@ -1,10 +1,7 @@
 import {
   BadRequestException,
-  HttpException,
   Injectable,
-  ServiceUnavailableException,
   UnauthorizedException,
-  UseFilters,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { user } from './schemas/register-user.schema';
@@ -44,7 +41,7 @@ export class UsersService {
   async checktoken(token){
     if(!token) throw new UnauthorizedException()
     try {
-        const id = await this.jwtService.decode(token)
+        const id =  this.jwtService.decode(token)
         const user = this.userModel.findById(id.sub)
         if(!user) throw new UnauthorizedException
       } catch(error) {
