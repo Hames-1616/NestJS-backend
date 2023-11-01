@@ -21,7 +21,13 @@ export class UsersService {
   async create(userdata: user) {
     userdata.password = await bcrypt.hash(userdata.password, 8);
     const checkUser = await this.userModel.findOne({ email: userdata.email });
-    if (checkUser === null) return await this.userModel.create(userdata);
+    if (checkUser === null) {
+      const newuser = await this.userModel.create(userdata)
+      const payload = { sub:newuser._id,username:newuser.name};
+      return {
+          access_token: await this.jwtService.sign(payload),
+       };
+    }
     else throw new BadRequestException('User Already Present');
   }
 
@@ -30,16 +36,10 @@ export class UsersService {
     if (!checkUser) throw new BadRequestException("User with this email Doesn't exists");
     const checkPass = await bcrypt.compare(login.password, checkUser!.password);
     if (!checkPass) throw new BadRequestException('Incorrect Password');
-   
-    const payload = { sub:checkUser._id,username:checkUser.name};
-    return {
-        access_token: await this.jwtService.sign(payload),
-     };
+
+    return {Status:"Login Successful"}
   }
 
-  async findall() {
-    return await this.userModel.find().exec();
-  }
 
   async checktoken(token){
     if(!token) throw new UnauthorizedException()
