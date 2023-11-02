@@ -7,8 +7,10 @@ import { JwtModule } from '@nestjs/jwt';
 
 
 
+
 @Module({
   imports:[
+
     JwtModule.register({
       secret:"secret",
       global:true,
@@ -17,6 +19,8 @@ import { JwtModule } from '@nestjs/jwt';
       },
     }),
     MongooseModule.forRoot("mongodb+srv://hames:hames2356@cluster0.wctctwo.mongodb.net/nestjs"),
+   
+   
     MongooseModule.forFeature([{name : user.name,schema:userschema}])],
   controllers: [UsersController],
   providers: [UsersService]
