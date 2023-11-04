@@ -4,13 +4,14 @@ import { UsersService } from './users.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { user, userschema } from './schemas/register-user.schema';
 import { JwtModule } from '@nestjs/jwt';
+import { HttpModule } from '@nestjs/axios';
 
 
 
 
 @Module({
   imports:[
-
+    HttpModule,
     JwtModule.register({
       secret:"secret",
       global:true,

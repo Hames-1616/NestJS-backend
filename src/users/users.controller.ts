@@ -17,6 +17,7 @@ import { Response } from 'express';
 import * as path from "path";
 import { createReadStream } from 'fs';
 import { join } from 'path';
+import axios from 'axios';
 
 interface Fileparams{
   name:string
@@ -61,9 +62,11 @@ export class UsersController {
   }
 
   @Get("getimg")
-  getimg(@Res() res: Response) {
-    const file = createReadStream(join(process.cwd(), `uploads/img.png`));
-    file.pipe(res);
+  async getimg(@Res() res: Response) {
+   const image = "https://raw.githubusercontent.com/Hames-1616/NestJS-backend/master/uploads/img.png"
+   const response = await axios.get(image,{ responseType: 'arraybuffer' })
+   res.set('Content-Type', 'image/png'); // Change to the appropriate content type.
+        res.send(response.data);
   }
 
 
