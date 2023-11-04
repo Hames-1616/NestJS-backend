@@ -64,7 +64,7 @@ export class UsersController {
 
 
   @Get("getimg/:id")
-  async getimg(@Res() res: Response,@Param('id') name:String,@Body('jwt') token) {
+  async getimg(@Res() res: Response,@Param('id') name:String,@Headers('jwt') token) {
     if(this.dbservice.checktoken(token))
     {
       const image = `https://raw.githubusercontent.com/Hames-1616/NestJS-backend/master/uploads/${name}.png`
