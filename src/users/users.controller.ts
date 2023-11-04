@@ -27,6 +27,8 @@ export class UsersController {
   constructor(private readonly dbservice: UsersService) {}
 
 
+
+
   @Post("allusers")
   async getallusers(@Headers('jwt') token){
     const verified = await this.dbservice.checktoken(token);
@@ -56,6 +58,12 @@ export class UsersController {
   }))
   async uploadFile(){
     return "success"
+  }
+
+  @Get("getimg")
+  getimg(@Res() res: Response) {
+    const file = createReadStream(join(process.cwd(), `uploads/img.png`));
+    file.pipe(res);
   }
 
 
