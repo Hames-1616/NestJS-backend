@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Headers,
+  Param,
   Post,
   Res,
   StreamableFile,
@@ -48,31 +49,35 @@ export class UsersController {
   }
 
 
-  @Post("/upload")
-  @UseInterceptors(FileInterceptor('file',{
-    storage : diskStorage({
-      destination:"./uploads",
-      filename:(req,file,cb)=>{
-        cb(null, `${file.originalname}`)
-      }
-    })
-  }))
-  async uploadFile(){
-    return "success"
-  }
-
-  @Get("getimg")
-  async getimg(@Res() res: Response) {
-   const image = "https://raw.githubusercontent.com/Hames-1616/NestJS-backend/master/uploads/img.png"
-   const response = await axios.get(image,{ responseType: 'arraybuffer' })
-   res.set('Content-Type', 'image/png'); // Change to the appropriate content type.
-        res.send(response.data);
-  }
+  // @Post("/upload")
+  // @UseInterceptors(FileInterceptor('file',{
+  //   storage : diskStorage({
+  //     destination:"./uploads",
+  //     filename:(req,file,cb)=>{
+  //       cb(null, `${file.originalname}`)
+  //     }
+  //   })
+  // }))
+  // async uploadFile(){
+  //   return "success"
+  // }
 
 
-  @Get("getfile")
-  getFile(@Res() res: Response,@Body() pic:Fileparams) {
-    const file = createReadStream(join(process.cwd(), `uploads/${pic.name}.png`));
-    file.pipe(res);
+  @Get("getimg/:id")
+  async getimg(@Res() res: Response,@Param('id') name:String,@Body('jwt') token) {
+    if(this.dbservice.checktoken(token))
+    {
+      const image = `https://raw.githubusercontent.com/Hames-1616/NestJS-backend/master/uploads/${name}.png`
+      const response = await axios.get(image,{ responseType: 'arraybuffer' })
+      res.set('Content-Type', 'image/png');
+      res.send(response.data);
+    }
   }
+
+
+  // @Get("getfile")
+  // getFile(@Res() res: Response,@Body() pic:Fileparams) {
+  //   const file = createReadStream(join(process.cwd(), `uploads/${pic.name}.png`));
+  //   file.pipe(res);
+  // }
 }
