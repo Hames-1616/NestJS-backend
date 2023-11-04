@@ -67,7 +67,7 @@ export class UsersController {
   async getimg(@Res() res: Response,@Param('id') name:String,@Headers('jwt') token) {
     if(this.dbservice.checktoken(token))
     {
-      const image = `https://raw.githubusercontent.com/Hames-1616/NestJS-backend/master/uploads/${name}.png`
+      const image = `https://raw.githubusercontent.com/Hames-1616/NestJS-backend/master/uploads/${name}`
       const response = await axios.get(image,{ responseType: 'arraybuffer' })
       res.set('Content-Type', 'image/png');
       res.send(response.data);
