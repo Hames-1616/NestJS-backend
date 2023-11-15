@@ -74,6 +74,12 @@ export class UsersController {
     }
   }
 
+// @Get("/allitems")
+// async getitems(@Headers('jwt') token){
+//   const verified = await this.dbservice.checktoken(token)
+//   if(verified) return await this.dbservice.allitems()
+// }
+
 
   // @Get("getfile")
   // getFile(@Res() res: Response,@Body() pic:Fileparams) {

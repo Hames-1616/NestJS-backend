@@ -5,6 +5,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { user, userschema } from './schemas/register-user.schema';
 import { JwtModule } from '@nestjs/jwt';
 import { HttpModule } from '@nestjs/axios';
+import { item, itemschema } from '../items/schemas/items-userSchema';
+import { ItemsService } from 'src/items/items.service';
 
 
 
@@ -22,8 +24,11 @@ import { HttpModule } from '@nestjs/axios';
     MongooseModule.forRoot("mongodb+srv://hames:hames2356@cluster0.wctctwo.mongodb.net/nestjs"),
    
    
-    MongooseModule.forFeature([{name : user.name,schema:userschema}])],
+    MongooseModule.forFeature([
+      {name : user.name,schema:userschema},
+    ])],
   controllers: [UsersController],
-  providers: [UsersService]
+  providers: [UsersService],
+  exports:[UsersService]
 })
 export class UsersModule {}

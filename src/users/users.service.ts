@@ -10,10 +10,11 @@ import * as bcrypt from 'bcrypt';
 import { LoginModel } from './schemas/login-user.model';
 import { JwtService } from '@nestjs/jwt';
 
+
 @Injectable()
 export class UsersService {
 
-  constructor(@InjectModel(user.name) private userModel: Model<user>,private readonly jwtService: JwtService) {}
+  constructor(@InjectModel(user.name) private readonly userModel: Model<user>,private readonly jwtService: JwtService) {}
 
   async create(userdata: user) {
     userdata.password = await bcrypt.hash(userdata.password, 8);
@@ -51,6 +52,4 @@ export class UsersService {
       }
       return true;
   }
-
- 
 }
