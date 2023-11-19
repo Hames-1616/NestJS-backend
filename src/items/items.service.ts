@@ -5,10 +5,18 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class ItemsService {
-    constructor(@InjectModel(item.name) private itemModel:Model<item>){}
+  constructor(@InjectModel(item.name) private itemModel: Model<item>) {}
 
+  searchlist: item[] = [];
+  async getallitems() {
+    const allitems = await this.itemModel.find().exec();
+    this.searchlist = allitems;
+    return allitems;
+  }
 
-    async getallitems(){
-        return await this.itemModel.find().exec()
-    }
+  fetchitem(search: string) {
+    return this.searchlist.filter((item) =>
+      item.name.toLowerCase().includes(search.toLowerCase()),
+    );
+  }
 }
