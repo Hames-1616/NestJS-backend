@@ -15,7 +15,8 @@ export class ItemsController {
     }
 
     @Get("/list/:id")
-    getlist(@Param('id') search:string){
-        return this.itemservice.fetchitem(search)
+    async getlist(@Headers('jwt') token,@Param('id') search:string){
+        await this.dbservice.checktoken(token)
+        return this.itemservice.fetchitem(search.replace(" ","_"))
     }
 }
