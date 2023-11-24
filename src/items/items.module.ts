@@ -5,6 +5,7 @@ import { UsersModule } from 'src/users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { item, itemschema } from 'src/items/schemas/items-userSchema';
 import { UsersService } from 'src/users/users.service';
+import { ItemsocketGateway } from '../itemsocket.gateway';
 
 @Module({
   imports:[

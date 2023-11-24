@@ -5,6 +5,8 @@ import { UsersController } from './users/users.controller';
 import { ItemsController } from './items/items.controller';
 import { UsersService } from './users/users.service';
 import { ItemsService } from './items/items.service';
+import { ItemsocketGateway } from './itemsocket.gateway';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 
 
@@ -14,8 +16,9 @@ import { ItemsService } from './items/items.service';
   imports: [
     UsersModule,
     ItemsModule,
+    EventEmitterModule.forRoot()
   ],
   controllers: [],
-  providers: [],
+  providers: [ItemsocketGateway],
 })
 export class AppModule {}
