@@ -12,7 +12,7 @@ import { ItemsService } from './items/items.service';
 import { Namespace, Server, Socket } from 'socket.io';
 import { OnEvent } from '@nestjs/event-emitter';
 
-@WebSocketGateway()
+@WebSocketGateway({namespace:"items"})
 export class ItemsocketGateway
   implements OnGatewayInit, OnGatewayDisconnect, OnGatewayConnection
 {
