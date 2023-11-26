@@ -20,15 +20,13 @@ export class ItemsocketGateway
   @WebSocketServer()
   io: Namespace;
 
-
-  
   handleDisconnect(client: any) {}
 
-  @OnEvent("Mongo")
-   async handleConnection(client: Socket,payload) {
-    await this.itemservice.watchitems()
-    const allitems = await this.itemservice.getallitems() 
-    this.io.emit('items', allitems)
+  @OnEvent('Mongo')
+  async handleConnection(client: Socket, payload) {
+    await this.itemservice.watchitems();
+    const allitems = await this.itemservice.getallitems();
+    this.io.emit('items', allitems);
   }
   afterInit(server: any) {}
 }
