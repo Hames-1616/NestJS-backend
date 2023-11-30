@@ -8,5 +8,8 @@ export class item{
 
     @Prop({required:true})
     price:number
+
+    @Prop({required:true})
+    info:string
 }
 export const itemschema = SchemaFactory.createForClass(item)
