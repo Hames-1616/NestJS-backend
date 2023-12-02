@@ -42,14 +42,15 @@ export class UsersService {
   }
 
   async checktoken(token){
+    var currentuser
     if(!token) throw new UnauthorizedException()
     try {
         const id =  this.jwtService.decode(token)
-        const user = this.userModel.findById(id.sub)
+        currentuser = this.userModel.findById(id.sub)
         if(!user) throw new UnauthorizedException
       } catch(error) {
         throw new UnauthorizedException()
       }
-      return true;
+      return currentuser;
   }
 }

@@ -85,4 +85,13 @@ export class UsersController {
   //   const file = createReadStream(join(process.cwd(), `uploads/${pic.name}.png`));
   //   file.pipe(res);
   // }
+
+  @Get("getuserinfo")
+  async getuser(@Headers('jwt') token)
+  {
+    return await this.dbservice.checktoken(token)
+  }
+
+
+
 }
