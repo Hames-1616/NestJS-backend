@@ -26,4 +26,10 @@ export class ItemsController {
         return await this.itemservice.addtoliked(search)
     }
 
+    @Post("/dislikeditem/:id")
+    async dislikeditem(@Headers('jwt') token,@Param('id') search:string){
+        // await this.dbservice.checktoken(token)
+        return await this.itemservice.addtoliked(search)
+    }
+
 }

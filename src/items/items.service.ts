@@ -33,10 +33,19 @@ export class ItemsService {
 
   async addtoliked(name:string){
    const product = this.fetchitem(name);
-    const s =await this.itemModel.findOneAndUpdate({
+    await this.itemModel.findOneAndUpdate({
       name : product[0].name
     },{
       liked:true
     })
   }
+
+  async addtodisliked(name:string){
+    const product = this.fetchitem(name);
+     await this.itemModel.findOneAndUpdate({
+       name : product[0].name
+     },{
+       liked: false
+     })
+   }
 }
