@@ -11,5 +11,8 @@ export class item{
 
     @Prop({required:true})
     info:string
+
+    @Prop({required:true})
+    liked:boolean
 }
 export const itemschema = SchemaFactory.createForClass(item)

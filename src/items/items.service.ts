@@ -30,4 +30,9 @@ export class ItemsService {
       item.name.toLowerCase().includes(search.toLowerCase()),
     );
   }
+
+  async addtoliked(name:string){
+   const product = this.fetchitem(name);
+   return product
+  }
 }

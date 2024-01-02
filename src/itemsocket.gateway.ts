@@ -12,7 +12,7 @@ import { ItemsService } from './items/items.service';
 import { Namespace, Server, Socket } from 'socket.io';
 import { OnEvent } from '@nestjs/event-emitter';
 
-@WebSocketGateway({namespace:"items"})
+@WebSocketGateway({ namespace: 'items' })
 export class ItemsocketGateway
   implements OnGatewayInit, OnGatewayDisconnect, OnGatewayConnection
 {
@@ -23,7 +23,7 @@ export class ItemsocketGateway
   handleDisconnect(client: any) {}
 
   @OnEvent('Mongo')
-  async handleConnection(client: Socket, payload) {
+  async handleConnection() {
     await this.itemservice.watchitems();
     const allitems = await this.itemservice.getallitems();
     this.io.emit('items', allitems);
