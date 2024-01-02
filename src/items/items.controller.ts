@@ -22,14 +22,14 @@ export class ItemsController {
 
     @Post("/likeditem/:id")
     async likeditem(@Headers('jwt') token,@Param('id') search:string){
-        // await this.dbservice.checktoken(token)
+        await this.dbservice.checktoken(token)
         return await this.itemservice.addtoliked(search)
     }
 
     @Post("/dislikeditem/:id")
     async dislikeditem(@Headers('jwt') token,@Param('id') search:string){
-        // await this.dbservice.checktoken(token)
-        return await this.itemservice.addtoliked(search)
+        await this.dbservice.checktoken(token)
+        return await this.itemservice.addtodisliked(search)
     }
 
 }
