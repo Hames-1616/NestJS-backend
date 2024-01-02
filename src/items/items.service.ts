@@ -33,6 +33,10 @@ export class ItemsService {
 
   async addtoliked(name:string){
    const product = this.fetchitem(name);
-   return product
+    await this.itemModel.updateOne({
+      item : product
+    },{
+      liked : true
+    })
   }
 }
