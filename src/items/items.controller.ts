@@ -1,4 +1,4 @@
-import { Controller, Get ,Headers, Param, Post, Search} from '@nestjs/common';
+import { Controller, Get ,Headers, Param, Post} from '@nestjs/common';
 import { ItemsService } from './items.service';
 import { UsersService } from 'src/users/users.service';
 
@@ -30,6 +30,12 @@ export class ItemsController {
     async dislikeditem(@Headers('jwt') token,@Param('id') search:string){
         await this.dbservice.checktoken(token)
         return await this.itemservice.addtodisliked(search)
+    }
+    
+    @Get("/getliked")
+    async getalliked(@Headers('jwt') token:string){
+        await this.dbservice.checktoken(token)
+        return await this.itemservice.getalllikeditems()
     }
 
 }

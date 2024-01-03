@@ -48,4 +48,10 @@ export class ItemsService {
        liked: false
      })
    }
+
+   async getalllikeditems(){
+    return await this.itemModel.find({
+      liked: true
+    },{})
+   }
 }
